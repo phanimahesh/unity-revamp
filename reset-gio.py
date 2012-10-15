@@ -42,5 +42,7 @@ def resetUnityChildren():
     for childSchema in unityChildren:
          resetrecursive(childSchema)
 
+resetPlugins()
+resetUnityChildren()
 subprocess.call("unity --replace",shell=True)
 
