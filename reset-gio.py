@@ -8,6 +8,12 @@
 #   Python wrapper to reset unity.
 #   Born at http://chat.stackexchange.com/rooms/6118/unity-reconfiguration
 #
+# Special Thanks to:
+#   Barneedhar (jokerdino on Ask Ubuntu)
+#   Amith (Amithkk on Ask Ubuntu)
+#
+# Legal Stuff:
+#
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
 # Foundation; version 3.
