@@ -24,12 +24,14 @@
 import subprocess
 from gi.repository import Gio
 
+allSchemas=Gio.Settings.list_schemas()
+allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
+
 def resetrecursive(schema,path=None):
-    try:
-        gsettings=Gio.Settings(schema=schema,path=path)
-    except Exception as e:
-        print "Unable to reset Schema %s"%schema
+    if (schema not in allSchemas) and (schema not in allRelocatableSchemas):
+        print "The schema %s is not installed. hence ignored"%schema
         return
+    gsettings=Gio.Settings(schema=schema,path=path)
     for key in gsettings.list_keys():
         gsettings.reset(key)
     gsettings.apply()
