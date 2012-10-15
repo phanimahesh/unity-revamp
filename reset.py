@@ -21,5 +21,7 @@ def resetUnityChildren():
 #    subprocess.Popen(unityresetter,shell=True, stdout=subprocess.PIPE).communicate()
          subprocess.call("gsettings reset-recursively "+child)
 # Replace the current session, reloading settings.
+resetPlugins()
+resetUnityChildren()
 subprocess.call("unity --replace",shell=True)
 
