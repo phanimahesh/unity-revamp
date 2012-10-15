@@ -1,8 +1,8 @@
+#!/usr/bin/python
 # Unity reset script for Quantal.
 # born at http://chat.stackexchange.com/rooms/6118/unity-reconfiguration
 # Dirty one
 
-#!/usr/bin/python
 import subprocess
 plugins=['core', 'composite', 'opengl', 'decor', 'vpswitch', 'snap', 'mousepoll', 'resize', 'place', 'move', 'wall', 'grid', 'session', 'animation', 'fade', 'unitymtgrabhandles', 'workarounds', 'scale', 'expo', 'ezoom', 'unityshell']
 for plugin in plugins:

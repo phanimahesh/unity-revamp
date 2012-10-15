@@ -25,7 +25,11 @@ import subprocess
 from gi.repository import Gio
 
 def resetrecursive(schema,path=None):
-    gsettings=Gio.Settings(schema=schema,path=path)
+    try:
+        gsettings=Gio.Settings(schema=schema,path=path)
+    except Exception as e:
+        print "Unable to reset Schema %s"%schema
+        return
     for key in gsettings.list_keys():
         gsettings.reset(key)
     gsettings.apply()
