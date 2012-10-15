@@ -22,6 +22,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 import subprocess
+from gi.repository import Gio
 
 def resetrecursive(schema,path=None):
     gsettings=Gio.Settings(schema=schema,path=path)
