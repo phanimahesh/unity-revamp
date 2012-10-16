@@ -57,8 +57,8 @@ def resetPlugins():
 	for schema in allRelocatableSchemas:
 		match=pluginRe.match(schema)
 		if match:
-			plugins.append(print pluginRe.sub('',schema))
-    for plugin in plugins:
+			plugins.append(pluginRe.sub('',schema))
+	for plugin in plugins:
 		schema='org.compiz.'+plugin
 		path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
 		resetrecursive(schema=schema,path=path)
