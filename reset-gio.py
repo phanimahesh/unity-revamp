@@ -52,7 +52,7 @@ def resetPlugins():
 
 def resetUnityChildren():
     #unityChildren=["com.canonical.Unity","com.canonical.Unity.Launcher","com.canonical.Unity.ApplicationsLens","com.canonical.Unity.Lenses","com.canonical.Unity.Dash","com.canonical.Unity.Panel","com.canonical.Unity.Devices","com.canonical.Unity.Runner","com.canonical.Unity.FilesLens"]
-    parentSchema="com.cnonical.Unity"
+    parentSchema="com.canonical.Unity"
     if (parentSchema not in allSchemas) and (parentSchema not in allRelocatableSchemas):
         print "Unable to locate Schema %s"%parentSchema
         print "Unable to reset Unity preferences"
