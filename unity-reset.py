@@ -58,7 +58,7 @@ def resetUnityChildren():
     unitySchema='com.canonical.Unity'
     unityChildRe=re.compile(unitySchema)
     for schema in allSchemas:
-        if unitychild.match(schema):
+        if unityChildRe.match(schema):
             resetAllKeys(schema)
 
 resetPlugins()
