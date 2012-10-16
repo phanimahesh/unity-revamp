@@ -62,7 +62,11 @@ def resetUnityChildren():
         match=unitychild.match(schema)
         if match:
             plugins.append(unitychild.sub('',schema))
+    
     for plugin in plugins:
+	'''Removing Launcher from the dict. Use --reset-icons for that'''
+	if plugin is "Launcher":
+		del plugin["Launcher"]
 	parentschema='com.canonical.Unity'
         childschema='com.canonical.Unity.'+plugin
         resetrecursive(childschema)
