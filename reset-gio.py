@@ -45,23 +45,23 @@ def resetrecursive(schema,path=None):
     print "Schema %s successfully reset"%schema
 
 def resetPlugins():
-	plugins=[]
-	unity=re.compile(r'com.canonical.Unity')
-	pluginRe=re.compile(r'(?P<plugin>org.compiz.)')
-	allSchemas=Gio.Settings.list_schemas()
-	allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
-	for schema in allSchemas:
-		match=pluginRe.match(schema)
-		if match:
-			plugins.append(pluginRe.sub('',schema))
-	for schema in allRelocatableSchemas:
-		match=pluginRe.match(schema)
-		if match:
-			plugins.append(pluginRe.sub('',schema))
-	for plugin in plugins:
-		schema='org.compiz.'+plugin
-		path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
-		resetrecursive(schema=schema,path=path)
+    plugins=[]
+    unity=re.compile(r'com.canonical.Unity')
+    pluginRe=re.compile(r'(?P<plugin>org.compiz.)')
+    allSchemas=Gio.Settings.list_schemas()
+    allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
+    #for schema in allSchemas:
+     #   match=pluginRe.match(schema)
+      #  if match:
+       #     plugins.append(pluginRe.sub('',schema))
+    for schema in allRelocatableSchemas:
+        match=pluginRe.match(schema)
+        if match:
+            plugins.append(pluginRe.sub('',schema))
+    for plugin in plugins:
+        schema='org.compiz.'+plugin
+        path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
+        resetrecursive(schema=schema,path=path)
 
 def resetUnityChildren():
     #unityChildren=["com.canonical.Unity","com.canonical.Unity.Launcher","com.canonical.Unity.ApplicationsLens","com.canonical.Unity.Lenses","com.canonical.Unity.Dash","com.canonical.Unity.Panel","com.canonical.Unity.Devices","com.canonical.Unity.Runner","com.canonical.Unity.FilesLens"]
@@ -77,4 +77,3 @@ def resetUnityChildren():
 resetPlugins()
 resetUnityChildren()
 subprocess.call("unity --replace",shell=True)
-
