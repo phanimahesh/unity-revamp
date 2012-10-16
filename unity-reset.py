@@ -70,5 +70,5 @@ def resetUnityChildren():
 
 resetPlugins()
 resetUnityChildren()
-subprocess.call("unity --replace",shell=True)
+subprocess.call("unity",shell=True)
 
