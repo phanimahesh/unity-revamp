@@ -32,7 +32,8 @@ import re
 allSchemas=Gio.Settings.list_schemas()
 allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
 
-def resetrecursive(schema,path=None):
+def resetAllKeys(schema,path=None):
+    """Reset all keys in given Schema."""
     if (schema not in allSchemas) and (schema not in allRelocatableSchemas):
         print "Ignoring missing Schema %s"%schema
         return
@@ -43,36 +44,24 @@ def resetrecursive(schema,path=None):
     print "Schema %s successfully reset"%schema
 
 def resetPlugins():
-    plugins=[]
-    pluginRe=re.compile(r'(?P<plugin>org.compiz.)')
+    """Reset Compiz Plugins"""
+    compizPluginRe=re.compile(r'(?P<plugin>org.compiz.)')
     for schema in allRelocatableSchemas:
-        match=pluginRe.match(schema)
-        if match:
-            plugins.append(pluginRe.sub('',schema))
-    for plugin in plugins:
-        schema='org.compiz.'+plugin
-        path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
-        resetrecursive(schema=schema,path=path)
-
+        if compizPluginRe.match(schema):
+            plugin=compizPluginRe.sub('',schema)
+            schema='org.compiz.'+plugin
+            path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
+            resetAllKeys(schema=schema,path=path)
 
 def resetUnityChildren():
-    plugins=[]
-    unitychild=re.compile(r'com.canonical.Unity.')
+    """Reset keys in child schemas of Unity"""
+    unitySchema='com.canonical.Unity'
+    unityChildRe=re.compile(unitySchema)
     for schema in allSchemas:
-        match=unitychild.match(schema)
-        if match:
-            plugins.append(unitychild.sub('',schema))
-    
-    for plugin in plugins:
-	'''Removing Launcher from the dict. Use --reset-icons for that'''
-	if plugin is "Launcher":
-		del plugin["Launcher"]
-	parentschema='com.canonical.Unity'
-        childschema='com.canonical.Unity.'+plugin
-        resetrecursive(childschema)
-	resetrecursive(parentschema)
+        if unitychild.match(schema):
+            resetAllKeys(schema)
 
 resetPlugins()
 resetUnityChildren()
-subprocess.call("unity",shell=True)
+subprocess.call("unity")
 
