@@ -46,14 +46,7 @@ def resetrecursive(schema,path=None):
 
 def resetPlugins():
     plugins=[]
-    unity=re.compile(r'com.canonical.Unity')
     pluginRe=re.compile(r'(?P<plugin>org.compiz.)')
-    allSchemas=Gio.Settings.list_schemas()
-    allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
-    #for schema in allSchemas:
-     #   match=pluginRe.match(schema)
-      #  if match:
-       #     plugins.append(pluginRe.sub('',schema))
     for schema in allRelocatableSchemas:
         match=pluginRe.match(schema)
         if match:
@@ -63,17 +56,23 @@ def resetPlugins():
         path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
         resetrecursive(schema=schema,path=path)
 
+
 def resetUnityChildren():
-    #unityChildren=["com.canonical.Unity","com.canonical.Unity.Launcher","com.canonical.Unity.ApplicationsLens","com.canonical.Unity.Lenses","com.canonical.Unity.Dash","com.canonical.Unity.Panel","com.canonical.Unity.Devices","com.canonical.Unity.Runner","com.canonical.Unity.FilesLens"]
-    parentSchema="com.canonical.Unity"
-    if (parentSchema not in allSchemas) and (parentSchema not in allRelocatableSchemas):
-        print "Unable to locate Schema %s"%parentSchema
-        print "Unable to reset Unity preferences"
-        return
-    unity=Gio.Settings(schema=parentSchema)
-    for childSchema in unity.list_children():
-         resetrecursive(childSchema)
+    plugins=[]
+    unitychild=re.compile(r'com.canonical.Unity.')
+    for schema in allSchemas:
+        match=unitychild.match(schema)
+        if match:
+            plugins.append(unitychild.sub('',schema))
+    for plugin in plugins:
+	parentschema='com.canonical.Unity'
+        childschema='com.canonical.Unity.'+plugin
+        resetrecursive(childschema)
+	resetrecursive(parentschema)
 
 resetPlugins()
 resetUnityChildren()
 subprocess.call("unity --replace",shell=True)
+
+
+
