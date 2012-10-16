@@ -29,7 +29,7 @@
 
 import subprocess
 from gi.repository import Gio
-
+import re
 
 allSchemas=Gio.Settings.list_schemas()
 allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
@@ -45,8 +45,6 @@ def resetrecursive(schema,path=None):
     print "Schema %s successfully reset"%schema
 
 def resetPlugins():
-    import re
-	from gi.repository import Gio
 	plugins=[]
 	unity=re.compile(r'com.canonical.Unity')
 	pluginRe=re.compile(r'(?P<plugin>org.compiz.)')
