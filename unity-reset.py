@@ -1,16 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Author:
+# Authors:
 #   J Phani Mahesh <phanimahesh@gmail.com>
+#   Barneedhar (jokerdino) <barneedhar@ubuntu.com>
+#   Amith KK <amithkumaran@gmail.com>
 #
 # Description:
 #   Python wrapper to reset unity.
 #   Born at http://chat.stackexchange.com/rooms/6118/unity-reconfiguration
-#
-# Special Thanks to:
-#   Barneedhar (jokerdino on Ask Ubuntu)
-#   Amith (Amithkk on Ask Ubuntu)
 #
 # Legal Stuff:
 #
@@ -73,6 +71,4 @@ def resetUnityChildren():
 resetPlugins()
 resetUnityChildren()
 subprocess.call("unity --replace",shell=True)
-
-
 
