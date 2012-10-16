@@ -35,12 +35,13 @@ allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
 
 def resetrecursive(schema,path=None):
     if (schema not in allSchemas) and (schema not in allRelocatableSchemas):
-        print "The schema %s is not installed. hence ignored"%schema
+        print "Ignoring missing Schema %s"%schema
         return
     gsettings=Gio.Settings(schema=schema,path=path)
     for key in gsettings.list_keys():
         gsettings.reset(key)
     gsettings.apply()
+    print "Schema %s successfully reset"%schema
 
 def resetPlugins():
     plugins=['core', 'composite', 'opengl', 'decor', 'vpswitch', 'snap', 'mousepoll', 'resize', 'place', 'move', 'wall', 'grid', 'session', 'animation', 'fade', 'unitymtgrabhandles', 'workarounds', 'scale', 'expo', 'ezoom', 'unityshell']
@@ -50,8 +51,14 @@ def resetPlugins():
         resetrecursive(schema=schema,path=path)
 
 def resetUnityChildren():
-    unityChildren=["com.canonical.Unity","com.canonical.Unity.Launcher","com.canonical.Unity.ApplicationsLens","com.canonical.Unity.Lenses","com.canonical.Unity.Dash","com.canonical.Unity.Panel","com.canonical.Unity.Devices","com.canonical.Unity.Runner","com.canonical.Unity.FilesLens"]
-    for childSchema in unityChildren:
+    #unityChildren=["com.canonical.Unity","com.canonical.Unity.Launcher","com.canonical.Unity.ApplicationsLens","com.canonical.Unity.Lenses","com.canonical.Unity.Dash","com.canonical.Unity.Panel","com.canonical.Unity.Devices","com.canonical.Unity.Runner","com.canonical.Unity.FilesLens"]
+    parentSchema="com.cnonical.Unity"
+    if (parentSchema not in allSchemas) and (parentSchema not in allRelocatableSchemas):
+        print "Unable to locate Schema %s"%parentSchema
+        print "Unable to reset Unity preferences"
+        return
+    unity=Gio.Settings(schema=parentSchema)
+    for childSchema in unity.list_children():
          resetrecursive(childSchema)
 
 resetPlugins()
