@@ -56,10 +56,11 @@ def resetPlugins():
 def resetUnityChildren():
     """Reset keys in child schemas of Unity"""
     unitySchema='com.canonical.Unity'
+    blacklists=['com.canonical.Unity.Launcher','com.canonical.Unity.webapps','com.canonical.Unity.Lenses']
     unityChildRe=re.compile(unitySchema)
     for schema in allSchemas:
-        if unityChildRe.match(schema):
-            resetAllKeys(schema)
+	if (schema not in blacklists) and (unityChildRe.match(schema)):
+		resetAllKeys(schema)
 
 resetPlugins()
 resetUnityChildren()
