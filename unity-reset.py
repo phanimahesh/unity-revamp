@@ -78,7 +78,7 @@ class UnityReset():
     @staticmethod
     def getAllKeys(schema,path=None,check=False):
         """Snapshot current settings in a given schema"""
-        if check and (schema not in allSchemas) and (schema not in allRelocatableSchemas):
+        if check and (schema not in UnityReset.allSchemas) and (schema not in UnityReset.allRelocatableSchemas):
             print "Ignoring missing Schema %s"%schema
             return
         snapshot=dict()
@@ -92,12 +92,12 @@ class UnityReset():
         """Snapshot compiz plugins"""
         snapshot=dict()
         compizPluginRe=re.compile(r'(?P<plugin>org.compiz.)')
-        for schema in allRelocatableSchemas:
+        for schema in UnityReset.allRelocatableSchemas:
             if compizPluginRe.match(schema):
                 plugin=compizPluginRe.sub('',schema)
                 schema='org.compiz.'+plugin
                 path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
-                snapshot[schema]=getAllKeys(schema=schema,path=path)
+                snapshot[schema]=UnityReset.getAllKeys(schema=schema,path=path)
         return snapshot
 
     @staticmethod
@@ -107,9 +107,9 @@ class UnityReset():
         unitySchema='com.canonical.Unity'
         blacklists=['com.canonical.Unity.Launcher','com.canonical.Unity.webapps','com.canonical.Unity.Lenses']
         unityChildRe=re.compile(unitySchema)
-        for schema in allSchemas:
+        for schema in UnityReset.allSchemas:
             if (schema not in blacklists) and (unityChildRe.match(schema)):
-                snapshot[schema]=getAllKeys(schema)
+                snapshot[schema]=UnityReset.getAllKeys(schema)
         return snapshot
         
 
