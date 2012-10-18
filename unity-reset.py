@@ -60,7 +60,7 @@ def resetUnityChildren():
     unityChildRe=re.compile(unitySchema)
     for schema in allSchemas:
 	if (schema not in blacklists) and (unityChildRe.match(schema)):
-		resetAllKeys(schema)
+	    resetAllKeys(schema)
 
 if __name__=='__main__':
     resetPlugins()
