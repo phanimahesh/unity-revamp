@@ -33,7 +33,7 @@ class UnityReset():
     allSchemas=Gio.Settings.list_schemas()
     allRelocatableSchemas=Gio.Settings.list_relocatable_schemas()
     
-    def __init__(self):
+    def __init__(self,refresh=True):
         print "Initialising Unity reset"
         print "Killing Unity and Compiz"
         subprocess.call(["killall","unity-panel-service"])
@@ -43,7 +43,8 @@ class UnityReset():
         print "Resetting Unity settings"
         self.resetUnityChildren()
         print "Reset complete. Reloading unity"
-        subprocess.call("unity")
+        if refresh:
+            subprocess.call("unity")
 
     def resetAllKeys(self,schema,path=None,check=False):
         """Reset all keys in given Schema."""
