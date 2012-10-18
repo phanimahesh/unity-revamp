@@ -6,7 +6,7 @@ import unityreset
 Gio=unityreset.Gio
 
 class TestUnityReset(unittest.TestCase):
-'''Unittest for unity --reset'''
+    '''Unittest for unity --reset'''
     def setUp(self):
         # Get defaults
         self.ompizPlugins=unityreset.UnityReset.snapshotCompizPlugins()
