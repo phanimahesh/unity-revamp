@@ -75,9 +75,10 @@ class UnityReset():
             if (schema not in blacklists) and (unityChildRe.match(schema)):
                 self.resetAllKeys(schema)
     
-    def getAllKeys(self,schema,path=None,check=False):
+    @staticmethod
+    def getAllKeys(schema,path=None,check=False):
         """Snapshot current settings in a given schema"""
-        if check and (schema not in self.allSchemas) and (schema not in self.allRelocatableSchemas):
+        if check and (schema not in allSchemas) and (schema not in allRelocatableSchemas):
             print "Ignoring missing Schema %s"%schema
             return
         snapshot=dict()
@@ -86,27 +87,29 @@ class UnityReset():
             snapshot[key]=gsettings.get_value(key)
         return snapshot
         
-    def snapshotCompizPlugins(self):
+    @staticmethod
+    def snapshotCompizPlugins():
         """Snapshot compiz plugins"""
         snapshot=dict()
         compizPluginRe=re.compile(r'(?P<plugin>org.compiz.)')
-        for schema in self.allRelocatableSchemas:
+        for schema in allRelocatableSchemas:
             if compizPluginRe.match(schema):
                 plugin=compizPluginRe.sub('',schema)
                 schema='org.compiz.'+plugin
                 path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
-                snapshot[schema]=self.getAllKeys(schema=schema,path=path)
+                snapshot[schema]=getAllKeys(schema=schema,path=path)
         return snapshot
 
-    def snapshotUnityChildren(self):
+    @staticmethod
+    def snapshotUnityChildren():
         """Snapshot keys in child schemas of Unity"""
         snapshot=dict()
         unitySchema='com.canonical.Unity'
         blacklists=['com.canonical.Unity.Launcher','com.canonical.Unity.webapps','com.canonical.Unity.Lenses']
         unityChildRe=re.compile(unitySchema)
-        for schema in self.allSchemas:
+        for schema in allSchemas:
             if (schema not in blacklists) and (unityChildRe.match(schema)):
-                snapshot[schema]=self.getAllKeys(schema)
+                snapshot[schema]=getAllKeys(schema)
         return snapshot
         
 
