@@ -45,15 +45,16 @@ class UnityReset():
         print "Reset complete. Reloading unity"
         subprocess.call("unity")
 
-    def resetAllKeys(self,schema,path=None):
+    def resetAllKeys(self,schema,path=None,check=False):
         """Reset all keys in given Schema."""
-        if (schema not in self.allSchemas) and (schema not in self.allRelocatableSchemas):
+        if check and (schema not in self.allSchemas) and (schema not in self.allRelocatableSchemas):
             print "Ignoring missing Schema %s"%schema
             return
         gsettings=Gio.Settings(schema=schema,path=path)
         for key in gsettings.list_keys():
             gsettings.reset(key)
-        gsettings.apply()
+        if gsettings.get_has_unapplied():
+            gsettings.apply()
         print "Schema %s successfully reset"%schema
 
     def resetPlugins(self):
@@ -62,7 +63,6 @@ class UnityReset():
         for schema in self.allRelocatableSchemas:
             if compizPluginRe.match(schema):
                 plugin=compizPluginRe.sub('',schema)
-                schema='org.compiz.'+plugin
                 path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
                 self.resetAllKeys(schema=schema,path=path)
 
@@ -75,9 +75,9 @@ class UnityReset():
             if (schema not in blacklists) and (unityChildRe.match(schema)):
                 self.resetAllKeys(schema)
     
-    def getAllKeys(self,schema,path=None):
+    def getAllKeys(self,schema,path=None,check=False):
         """Snapshot current settings in a given schema"""
-        if (schema not in self.allSchemas) and (schema not in self.allRelocatableSchemas):
+        if check and (schema not in self.allSchemas) and (schema not in self.allRelocatableSchemas):
             print "Ignoring missing Schema %s"%schema
             return
         snapshot=dict()
