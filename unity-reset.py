@@ -62,7 +62,8 @@ def resetUnityChildren():
 	if (schema not in blacklists) and (unityChildRe.match(schema)):
 		resetAllKeys(schema)
 
-resetPlugins()
-resetUnityChildren()
-subprocess.call("unity")
+if __name__=='__main__':
+    resetPlugins()
+    resetUnityChildren()
+    subprocess.call("unity")
 
