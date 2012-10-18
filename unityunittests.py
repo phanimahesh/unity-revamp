@@ -9,7 +9,7 @@ class TestUnityReset(unittest.TestCase):
     '''Unittest for unity --reset'''
     def setUp(self):
         # Get defaults
-        self.ompizPlugins=unityreset.UnityReset.snapshotCompizPlugins()
+        self.compizPlugins=unityreset.UnityReset.snapshotCompizPlugins()
         self.unityChildren=unityreset.UnityReset.snapshotUnityChildren()
 
     def test_reset_display_recent_apps(self):
