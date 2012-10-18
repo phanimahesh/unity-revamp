@@ -14,8 +14,8 @@ if "favorites" in gsettings.list_keys():
 	#gsettings.set_value("favorites","[application://gnome-terminal.desktop]")
     
 
-'''
-	variant=GLib.Variant('as',"application://nautilus.desktop")
-	variant.g_variant_new(favorlist)
-	gsettings.set_value(variant,"favorites")
-	print favorlist'''
+
+	#variant=GLib.Variant('as',"application://nautilus.desktop")
+	#variant.g_variant_new(favorlist)
+	#gsettings.set_value(variant,"favorites")
+	#print favorlist
