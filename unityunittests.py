@@ -56,10 +56,10 @@ class TestUnityReset(unittest.TestCase):
     def test_launcher_hide_mode(self):
         schema="org.compiz.unityshell"
         key="launcher-hide-mode"
-        #path="/org/compiz/profiles/unity/plugins/unityshell/"
+        path="/org/compiz/profiles/unity/plugins/unityshell/"
         default=self.compizPlugins[schema][key]
-        gsettings=Gio.Settings(schema)
-        gsettings.set_boolean(key,False)
+        gsettings=Gio.Settings(schema,path)
+        gsettings.set_int(key,1)
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
         self.assertTrue(current==default)

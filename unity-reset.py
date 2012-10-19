@@ -112,7 +112,7 @@ class UnityReset():
     
     @staticmethod
     def snapshotCompizChildren():
-        """Snapshot keys in child schemas of Unity"""
+        """Snapshot keys in child schemas of Compiz"""
         snapshot=dict()
         compizSchema='org.compiz'
         compizChildRe=re.compile(compizSchema)
