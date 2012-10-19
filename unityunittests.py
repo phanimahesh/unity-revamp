@@ -59,9 +59,10 @@ class TestUnityReset(unittest.TestCase):
         key="show-hud"
         default=self.compizChildren[schema][key]
         gsettings=Gio.Settings(schema)
-        gsettings.set_strv(key,['<Super>'])
+        gsettings.set_strv(key,['<Super>','<Ctrl>'])
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
+        print current
         self.assertTrue(current==default)
     
     def test_launcher_hide_mode(self):
