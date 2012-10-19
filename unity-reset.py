@@ -56,6 +56,7 @@ class UnityReset():
             gsettings.reset(key)
         if gsettings.get_has_unapplied():
             gsettings.apply()
+	    gsettings.sync()
         print "Schema %s successfully reset"%schema
 
     def resetPlugins(self):
@@ -66,7 +67,15 @@ class UnityReset():
                 plugin=compizPluginRe.sub('',schema)
                 path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
                 self.resetAllKeys(schema=schema,path=path)
-
+                
+    def resetCompizChildren(self):
+        """Reset keys in non-relocatable schemas of Compiz"""
+        compizSchema='org.compiz'
+        compizChildRe=re.compile(compizSchema)
+        for schema in self.allSchemas:
+            if compizChildRe.match(schema):
+                self.resetAllKeys(schema)
+                
     def resetUnityChildren(self):
         """Reset keys in child schemas of Unity"""
         unitySchema='com.canonical.Unity'
@@ -100,7 +109,19 @@ class UnityReset():
                 path="/org/compiz/profiles/unity/plugins/"+plugin+"/"
                 snapshot[schema]=UnityReset.getAllKeys(schema=schema,path=path)
         return snapshot
-
+    
+    @staticmethod
+    def snapshotCompizChildren():
+        """Snapshot keys in child schemas of Unity"""
+        snapshot=dict()
+        compizSchema='org.compiz'
+        compizChildRe=re.compile(compizSchema)
+        for schema in UnityReset.allSchemas:
+            if compizChildRe.match(schema):
+                snapshot[schema]=UnityReset.getAllKeys(schema)
+        return snapshot
+    
+    
     @staticmethod
     def snapshotUnityChildren():
         """Snapshot keys in child schemas of Unity"""
