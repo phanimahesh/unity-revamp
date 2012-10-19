@@ -28,7 +28,7 @@ class TestUnityReset(unittest.TestCase):
         key="opacity"
         default=self.unityChildren[schema][key]
         gsettings=Gio.Settings(schema)
-        gsettings.set_int(key,200)
+        gsettings.set_int(key,49)
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
         self.assertTrue(current==default)
