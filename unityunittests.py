@@ -26,8 +26,9 @@ class TestUnityReset(unittest.TestCase):
     def test_reset_compiz_scale(self):
         schema="org.compiz.scale"
         key="opacity"
-        default=self.unityChildren[schema][key]
-        gsettings=Gio.Settings(schema)
+        path="/org/compiz/profiles/unity/plugins/scale/"
+        default=self.compizPlugins[schema][key]
+        gsettings=Gio.Settings(schema,path)
         gsettings.set_int(key,49)
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
