@@ -56,7 +56,7 @@ class UnityReset():
             gsettings.reset(key)
         if gsettings.get_has_unapplied():
             gsettings.apply()
-        gsettings.sync()
+        #gsettings.sync()
         print "Schema %s successfully reset"%schema
 
     def resetPlugins(self):
