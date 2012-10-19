@@ -12,7 +12,7 @@ class TestUnityReset(unittest.TestCase):
         self.compizPlugins=unityreset.UnityReset.snapshotCompizPlugins()
         self.compizChildren=unityreset.UnityReset.snapshotCompizChildren()
         self.unityChildren=unityreset.UnityReset.snapshotUnityChildren()
-    '''
+    
     def test_reset_display_recent_apps(self):
         schema="com.canonical.Unity.ApplicationsLens"
         key="display-recent-apps"
@@ -52,7 +52,7 @@ class TestUnityReset(unittest.TestCase):
         gsettings.set_strv(key,['video.lens','gwibber.lens'])
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
-        self.assertTrue(current==default)'''
+        self.assertTrue(current==default)
     
     def test_show_hud(self):
         schema="org.compiz.integrated"
@@ -63,7 +63,7 @@ class TestUnityReset(unittest.TestCase):
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
         self.assertTrue(current==default)
-    '''
+    
     def test_launcher_hide_mode(self):
         schema="org.compiz.unityshell"
         key="launcher-hide-mode"
@@ -73,7 +73,7 @@ class TestUnityReset(unittest.TestCase):
         gsettings.set_int(key,1)
         unityreset.UnityReset(False)
         current=gsettings.get_value(key)
-        self.assertTrue(current==default)'''
+        self.assertTrue(current==default)
 
 if __name__ == '__main__':
     unittest.main()
