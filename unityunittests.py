@@ -15,8 +15,8 @@ class TestUnityReset(unittest.TestCase):
 
     def test_reset_display_recent_apps(self):
         schema="com.canonical.Unity.ApplicationsLens"
-        key="display-available-apps"
-    	default=self.unityChildren[schema][key]
+        key="display-recent-apps"
+        default=self.unityChildren[schema][key]
         gsettings=Gio.Settings(schema)
         gsettings.set_boolean(key,False)
         unityreset.UnityReset(False)
@@ -26,7 +26,7 @@ class TestUnityReset(unittest.TestCase):
     def test_runner_history(self):
         schema="com.canonical.Unity.Runner"
         key="history"
-    	default=self.unityChildren[schema][key]
+        default=self.unityChildren[schema][key]
         gsettings=Gio.Settings(schema)
         gsettings.set_strv(key,['abc','def'])
         unityreset.UnityReset(False)
