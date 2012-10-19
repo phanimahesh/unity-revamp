@@ -23,6 +23,16 @@ class TestUnityReset(unittest.TestCase):
         current=gsettings.get_value(key)
         self.assertTrue(current==default)
 
+    def test_reset_compiz_scale(self):
+        schema="org.compiz.scale"
+        key="opacity"
+        default=self.unityChildren[schema][key]
+        gsettings=Gio.Settings(schema)
+        gsettings.set_int(key,49)
+        unityreset.UnityReset(False)
+        current=gsettings.get_value(key)
+        self.assertTrue(current==default)
+
     def test_runner_history(self):
         schema="com.canonical.Unity.Runner"
         key="history"
