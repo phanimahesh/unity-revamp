@@ -40,6 +40,8 @@ class UnityReset():
         subprocess.call(["pkill","-9","compiz"])
         print "Resetting compiz plugins"
         self.resetPlugins()
+        print "Resetting more compiz plugins"
+        self.resetCompizChildren()
         print "Resetting Unity settings"
         self.resetUnityChildren()
         print "Reset complete. Reloading unity"
