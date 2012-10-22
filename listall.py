@@ -1,4 +1,12 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Author:
+#   J Phani Mahesh <phanimahesh@gmail.com>
+#
+# Description:
+#    Lists current values of all settings that Unity cares about.
+
 import unityreset
 
 compizPlugins=unityreset.UnityReset.snapshotCompizPlugins()

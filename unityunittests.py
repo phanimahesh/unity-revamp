@@ -1,4 +1,13 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Authors:
+#   J Phani Mahesh <phanimahesh@gmail.com>
+#   Barneedhar (jokerdino) <barneedhar@ubuntu.com>
+#   Amith KK <amithkumaran@gmail.com>
+#
+# Description:
+#   Unit tests for unity reset.
 
 import unittest
 import unityreset
